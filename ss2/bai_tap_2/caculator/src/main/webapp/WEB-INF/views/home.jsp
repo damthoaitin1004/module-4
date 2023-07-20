@@ -44,7 +44,10 @@
         <button name="caculator" value="/">Division(/)</button>
     </div>
 </form>
-<h1>${result}</h1>
+<c:if test="${msg==null}">
+    <h1>${result}</h1>
+</c:if>
+
 <c:if test="${msg !=null}">
     <h1>${msg}</h1>
 </c:if>

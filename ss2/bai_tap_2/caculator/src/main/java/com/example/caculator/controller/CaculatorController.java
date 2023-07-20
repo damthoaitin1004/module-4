@@ -15,13 +15,13 @@ public class CaculatorController {
 
     @PostMapping("/save")
     public String save(@RequestParam String numberOne, @RequestParam String numberTwo, @RequestParam String caculator, Model model) {
-        int result = 0;
-        int numberA = 0;
-        int numberB = 0;
+        float result = 0;
+        float numberA = 0;
+        float numberB = 0;
         String msg = null;
         try {
-            numberA = Integer.parseInt(numberOne);
-            numberB = Integer.parseInt(numberTwo);
+            numberA = Float.parseFloat(numberOne);
+            numberB = Float.parseFloat(numberTwo);
 
             switch (caculator) {
                 case "+":
@@ -34,17 +34,15 @@ public class CaculatorController {
                     result = numberA * numberB;
                     break;
                 case "/":
-                    if (numberB != 0) {
-                        result = numberA / numberB;
-                    } else {
-                        msg = "Error";
-                    }
+                    result = numberA / numberB;
                     break;
                 default:
                     break;
             }
-        }catch (NumberFormatException n){
-            msg = "Number format";
+        } catch (NumberFormatException n) {
+            msg = "Wrong number format";
+        } catch (ArithmeticException a) {
+            msg = "undivided error: "+numberA+" cannot be divided by "+numberB;
         }
         model.addAttribute("result", result);
         model.addAttribute("msg",msg);
