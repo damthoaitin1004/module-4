@@ -58,8 +58,9 @@ public class ControllerProduct {
         return "redirect:/list";
     }
     @PostMapping("/search")
-    public ModelAndView searchName(@RequestParam String name){
-        List<Product> productList = iServiceProduct.searchName(name);
+    public ModelAndView searchName(@RequestParam String search){
+        List<Product> productList = iServiceProduct.searchName(search);
+        System.out.println(search);
         ModelAndView modelAndView = new ModelAndView("/list");
         modelAndView.addObject("productList", productList);
         return modelAndView;

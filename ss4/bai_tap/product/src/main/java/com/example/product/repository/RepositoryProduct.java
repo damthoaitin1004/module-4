@@ -53,7 +53,7 @@ public class RepositoryProduct implements IRepositoryProduct {
     @Override
     public List<Product> searchName(String name) {
         List<Product> searchName = new ArrayList<>();
-        for (Product p : productList.values()) {
+        for (Product p : displayAll()) {
             if (p.getName().toLowerCase().contains(name.toLowerCase())) {
                 searchName.add(p);
             }
