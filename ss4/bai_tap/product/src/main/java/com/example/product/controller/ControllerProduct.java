@@ -63,6 +63,9 @@ public class ControllerProduct {
         System.out.println(search);
         ModelAndView modelAndView = new ModelAndView("/list");
         modelAndView.addObject("productList", productList);
+        if (productList.size()==0){
+            modelAndView.addObject("msg", "Không thấy kết quả phù hợp");
+        }
         return modelAndView;
     }
 }
