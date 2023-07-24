@@ -19,11 +19,11 @@ public class DictionaryController {
         dictionary.put("table", "bàn");
         dictionary.put("banana","chuối");
     }
-
     @GetMapping("/home")
     public String showForm() {
         return "home";
     }
+
 
     @PostMapping("/home")
     public String interpret(@RequestParam String search, Model model) {

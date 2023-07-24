@@ -1,7 +1,7 @@
 package com.example.product.controller;
 
 import com.example.product.model.Product;
-import com.example.product.service.IServiceProduct;
+import com.example.product.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +12,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-public class ControllerProduct {
+public class ProductController {
     @Autowired
-    private IServiceProduct iServiceProduct;
+    private IProductService iProductService;
 
     @GetMapping("/list")
     public ModelAndView showList() {
-        List<Product> productList = iServiceProduct.displayAll();
+        List<Product> productList = iProductService.displayAll();
         ModelAndView modelAndView = new ModelAndView("/list");
         modelAndView.addObject("productList", productList);
         return modelAndView;
@@ -26,14 +26,14 @@ public class ControllerProduct {
 
     @GetMapping("/update/{id}")
     public String showUpdate(Model model, @PathVariable int id) {
-        Product product = iServiceProduct.getById(id);
+        Product product = iProductService.getById(id);
         model.addAttribute("productUpdate", product);
         return "/update";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        boolean check = iServiceProduct.remove(id);
+        boolean check = iProductService.remove(id);
         if (check) {
             redirectAttributes.addFlashAttribute("msg", "XÓa thành công");
 
@@ -53,7 +53,7 @@ public class ControllerProduct {
 
     @PostMapping("/create")
     public String create(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-        boolean check = iServiceProduct.add(product);
+        boolean check = iProductService.add(product);
         if (check) {
             redirectAttributes.addFlashAttribute("msg", "Thêm mới thành công");
         } else {
@@ -64,7 +64,7 @@ public class ControllerProduct {
 
     @PostMapping("/update")
     public String update(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-        boolean check = iServiceProduct.update(product);
+        boolean check = iProductService.update(product);
         if (check) {
             redirectAttributes.addFlashAttribute("msg", "Cập nhật thành công");
         } else {
@@ -77,7 +77,7 @@ public class ControllerProduct {
 
     @PostMapping("/search")
     public ModelAndView searchName(@RequestParam String search) {
-        List<Product> productList = iServiceProduct.searchName(search);
+        List<Product> productList = iProductService.searchName(search);
         System.out.println(search);
         ModelAndView modelAndView = new ModelAndView("/list");
         modelAndView.addObject("productList", productList);
