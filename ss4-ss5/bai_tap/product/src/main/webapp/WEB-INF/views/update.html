@@ -20,7 +20,7 @@
     Nhập số lượng sản phẩm
     <input type="number" th:field="*{quantity}" th:value="${productUpdate.quantity}" class="form-control"><br>
     Nhập thông tin cho sản phẩm
-    <input type="text" th:field="*{information}" th:value="${productUpdate.information}" class="form-control">
+    <input type="text" th:field="*{description}" th:value="${productUpdate.description}" class="form-control">
     <br>
     <button class="btn btn-outline-danger">save</button>
     <a th:href="@{/list}"><button type="button" class="btn btn-outline-danger">cancle</button></a>

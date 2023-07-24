@@ -13,24 +13,24 @@ public class Product {
     private String name;
     private double price;
     private int quantity;
-    private String information;
+    private String description;
     public Product(){
 
     }
 
-    public Product(int id, String name, double price, int quantity, String information) {
+    public Product(int id, String name, double price, int quantity, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.information = information;
+        this.description = description;
     }
 
-    public Product(String name, double price, int quantity, String information) {
+    public Product(String name, double price, int quantity, String description) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.information = information;
+        this.description = description;
     }
 
     public int getId() {
@@ -65,11 +65,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getInformation() {
-        return information;
+    public String getDescription() {
+        return description;
     }
 
-    public void setInformation(String information) {
-        this.information = information;
+    public void setDescription(String information) {
+        this.description = information;
     }
 }

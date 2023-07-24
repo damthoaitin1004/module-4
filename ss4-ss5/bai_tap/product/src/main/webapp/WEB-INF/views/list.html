@@ -33,7 +33,7 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
             <td th:text="${product.quantity}"></td>
-            <td th:text="${product.information}"></td>
+            <td th:text="${product.description}"></td>
             <td><a th:href="@{/update/{id}(id=${product.getId()})}"><button class="btn btn-outline-danger">Chỉnh sửa</button></a></td>
             <td><a th:href="@{/delete/{id}(id=${product.getId()})}"><button class="btn btn-outline-danger">Xóa</button></a></td>
         </tr>

@@ -36,7 +36,7 @@ public class ProductRepository implements IProductRepository {
             productUpdate.setName(product.getName());
             productUpdate.setPrice(product.getPrice());
             productUpdate.setQuantity(product.getQuantity());
-            productUpdate.setInformation(product.getInformation());
+            productUpdate.setDescription(product.getDescription());
             entityManager.merge(productUpdate);
         } catch (Exception e) {
             return false;
