@@ -21,11 +21,11 @@
     <table align="center">
         <tr>
             <th>Tác giả</th>
-            <td><input th:field="*{author}" class="form-control"></td>
+            <td><input th:field="*{author}" class="form-control" required></td>
         </tr>
         <tr>
             <th>Tiêu đề</th>
-            <td><input th:field="*{name}" class="form-control"></td>
+            <td><input th:field="*{name}" class="form-control" required></td>
         </tr>
         <tr>
             <th>Nội dung</th>
@@ -33,8 +33,8 @@
         </tr>
         <tr>
             <th>Thể loại</th>
-            <td><select name="categoryId">
-                <option th:each="c:${categoryList}" th:value="${c.id}"><span th:text="${c.name}"></span></option>
+            <td><select th:field="*{category}" >
+                <option th:each="category: ${categoryList}"  th:value="${category.id}" th:text="${category.name}"></option>
             </select></td>
         </tr>
         <tr>

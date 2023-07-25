@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -46,11 +48,10 @@ public class BlogController {
     }
 
     @PostMapping("/create")
-    private String create(@ModelAttribute Blog blog,@RequestParam int categoryId,RedirectAttributes redirectAttributes){
-        Category category = categoryService.findById(categoryId);
-        blog.setCategory(category);
+    private String create(@ModelAttribute Blog blog,RedirectAttributes redirectAttributes){
+        blog.setDate(Date.valueOf(LocalDate.now()));
         blogService.add(blog);
-        redirectAttributes.addFlashAttribute("msg","Bài viết đã được đăng");
+        redirectAttributes.addFlashAttribute("msg","Bài viết đã được đăng lúc "+Date.valueOf(LocalDate.now()));
         return "redirect:/blog/list";
     }
     @RequestMapping("/update/{id}")
@@ -62,9 +63,7 @@ public class BlogController {
         return "update";
     }
     @PostMapping("/update")
-    public String update(@ModelAttribute Blog blog,@RequestParam int categoryId, RedirectAttributes redirectAttributes){
-        Category category = categoryService.findById(categoryId);
-        blog.setCategory(category);
+    public String update(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes){
         blogService.edit(blog);
         redirectAttributes.addFlashAttribute("msg","Chỉnh sửa thành công");
         return "redirect:/blog/list";
