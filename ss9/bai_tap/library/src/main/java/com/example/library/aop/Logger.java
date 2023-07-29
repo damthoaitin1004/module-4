@@ -19,7 +19,7 @@ public class Logger {
     @Autowired
     private ILogRepository iLogRepository;
     @Autowired
-    private IBookCodeService bookCodeService;
+    private IBookService bookService;
 
     private static Integer count;
 
@@ -38,14 +38,13 @@ public class Logger {
         System.out.println("Số người đã truy cập trang wed là "+ count);
         iLogRepository.save(log);
     }
-    @Around("execution(* com.example.library.service.BookCodeService.add(..))")
+    @Around("execution(* com.example.library.service.BookService.add(..))")
     public void loggingCreateByOneBookCode(JoinPoint joinPoint ){
         Object[] args = joinPoint.getArgs();
-        Integer code = (Integer) args[0];
-        BookCode bookCode = bookCodeService.findByName(code);
+        Book book = (Book) args[0];
         Log log = new Log();
         log.setCount(1);
-        log.setName(bookCode.getName()+"was created");
+        log.setName(book.getName()+"Book has been changed");
         iLogRepository.save(log);
     }
 
