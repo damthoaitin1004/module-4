@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:object="${book}" class="mx-5">
+    <img th:src="@{${book.img}}" class=" align-items-center">
+    <h1 th:text="${book.name}" align="center"></h1>
+    <h3 th:text="${book.information}"></h3>
+    <hr>
+    <h3>Số lượng hiện có</h3>
+    <h3 th:text="${book.quantity}"></h3>
+    <a th:href="@{/book/rental/{id}(id=${book.getId()})}">
+        <button class="btn btn-info">Thuê sách</button>
+    </a>
+
+</div>
+
+
+</body>
+</html>

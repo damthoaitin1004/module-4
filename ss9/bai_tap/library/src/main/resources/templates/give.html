@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 th:text="${book.getName()}"></h1>
+<form  th:action="@{/book/give}" method="post">
+    <table>
+        <tr>
+            <td>Nhập mã sách đã mượn </td>
+            <td>
+                <input name="nameBookCode" type="number">
+            </td>
+        </tr>
+        <tr>
+           <td>
+           </td>
+        </tr>
+        <tr>
+            <td><button >Save</button></td>
+        </tr>
+    </table>
+
+</form>
+
+</body>
+</html>
