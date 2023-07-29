@@ -38,14 +38,14 @@ public class Logger {
         System.out.println("Số người đã truy cập trang wed là "+ count);
         iLogRepository.save(log);
     }
-    @Around("execution(* com.example.library.service.BookService.add(..))")
+    @Around("execution(* com.example.library.service.BookCodeService.add(..))")
     public void loggingCreateByOneBookCode(JoinPoint joinPoint ){
         Object[] args = joinPoint.getArgs();
         Integer code = (Integer) args[0];
         BookCode bookCode = bookCodeService.findByName(code);
         Log log = new Log();
         log.setCount(1);
-        log.setName("The book "+bookCode.getName()+" has been returned");
+        log.setName(bookCode.getName()+"was created");
         iLogRepository.save(log);
     }
 
