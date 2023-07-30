@@ -7,5 +7,6 @@ import java.util.List;
 public interface IBookService {
     List<Book> findAll();
    Book findById(int id);
-   void add(Book book);
+   void giveBook(Book book);
+   void rentalBook(Book book);
 }

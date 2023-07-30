@@ -46,7 +46,7 @@ public class BookController {
         Book book = bookService.findById(id);
         if (book.getQuantity() > 0) {
             modelAndView = new ModelAndView("code");
-            book.setQuantity(book.getQuantity() - 1);
+            bookService.rentalBook(book);
             BookCode bookCode = new BookCode(randNum, book);
             bookCodeService.add(bookCode);
             modelAndView.addObject("codeRental", randNum);
@@ -70,8 +70,7 @@ public class BookController {
         BookCode bookGive = bookCodeService.findByName(nameBookCode);
         Book book = bookGive.getBook();
         bookCodeService.delete(nameBookCode);
-        book.setQuantity(book.getQuantity() + 1);
-        bookService.add(book);
+        bookService.giveBook(book);
         model.addAttribute("msg", "Cảm ơn bạn đã tin dùng dịch vụ");
         model.addAttribute("list", bookService.findAll());
         return "list";
