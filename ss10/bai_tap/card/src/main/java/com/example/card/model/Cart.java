@@ -48,7 +48,10 @@ public class Cart {
             products.put(productDto,1);
         }
     }
-    public void ClearAll(){
+    public void clearAll(){
         products.clear();
+    }
+    public int getSize(){
+       return products.size();
     }
 }

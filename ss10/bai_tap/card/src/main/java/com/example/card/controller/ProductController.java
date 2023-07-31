@@ -28,10 +28,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public ModelAndView showShop(Model model, @SessionAttribute(value = "cart",required = false)Cart cart,
-                                 @CookieValue(value = "productId",
-                                 required = false,
-                                 defaultValue = "-1")Long id) {
+    public ModelAndView showShop(Model model, @SessionAttribute(value = "cart",required = false)Cart cart
+                               ) {
         model.addAttribute("historyProduct", productService.findAll());
         if (cart != null){
             model.addAttribute("cart",cart);
@@ -72,9 +70,9 @@ public class ProductController {
     @GetMapping("/pay")
     public String pay(@SessionAttribute(value = "cart") Cart cart, RedirectAttributes redirectAttributes){
         float totalPrice = cart.countTotalPayment();
-        String msg = "Đã thanh toán "+totalPrice;
+        String msg = "Đã thanh toán "+cart.getSize()+"sản phẩm thành tiền:"+totalPrice;
         redirectAttributes.addFlashAttribute("msg",msg);
-        cart.ClearAll();
+        cart.clearAll();
         return "redirect:/cart";
     }
 }
