@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping Cart</title>
+</head>
+<body>
+<p>
+  <a href="/shop">Shop</a>
+</p>
+<h1>Your Cart</h1>
+<table>
+    <tr>
+      <th>Item</th>
+      <th>Image</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+    <tr th:each="product: ${cart.products}">
+      <td th:text="${product.getKey().name}"></td>
+      <td>
+          <a id="decrease_button" th:href="@{/shop/give/__${product.getKey().id}__(action='show')}" th:if="${product.getValue() > 0}"
+             th:text="${'-'}"></a>
+        <span th:text="${product.getValue()}"></span>
+        <a id="increase_button" th:href="@{/shop/add/__${product.getKey().id}__(action='show')}"
+           th:text="${'+'}"></a>
+      </td>
+      <td th:text="${product.getKey().price}"></td>
+   <td th:text="${product.value}">
+   </td></tr>
+<tr>
+    <td th:text="${cart.countTotalPayment()}"></td>
+    <td><a th:href="@{/shop/pay}"><button>Pay</button></a></td>
+</tr>
+</table>
+<h1 th:if="${msg}" th:text="${msg}"></h1>
+</body>
+</html>
