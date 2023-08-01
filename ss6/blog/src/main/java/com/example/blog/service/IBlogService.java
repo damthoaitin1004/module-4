@@ -17,4 +17,5 @@ public interface IBlogService {
 
      void edit(Blog blog);
      List<Blog> findCategoryId(int category_id);
+     List<Blog> findListAll();
 }
