@@ -8,22 +8,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
+    <script src="../static/jquery-3.7.0.min.js"></script>
+
 </head>
 <body>
 <header>
-    <div class="mx-auto" align="center"><img src="https://logos-world.net/wp-content/uploads/2021/08/Christian-Dior-Symbol.png" style="width: 10%;height: 10%"></div>
-        <div align="center" class="mx-auto"><h1>Blog Jackie</h1>
-            <a th:href="@{/blog/create}"><button class="btn btn-outline-primary">Đăng bài viết</button></a>
-            <a th:href="@{/category/list}"><button class="btn btn-outline-primary"> Danh mục  bài viết</button></a>
-        </div>
-    <nav class="navbar bg-light">
-        <div class="container-fluid" >
-            <form class="d-flex" role="search" method="get" th:href="@{/category/list}">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchName" >
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
+<input id="searchName"><button onclick="display()" type="button">search</button>
 </header>
 <table class=" table table-light mx-auto ">
     <tr>
@@ -32,32 +22,57 @@
         <th>Nội dung</th>
         <th>Tác giả</th>
         <th>Thể loại</th>
-        <th>Xóa</th>
-        <th>Chỉnh sửa</th>
     </tr>
-    <tr th:each="blog,status: ${blogPage}">
-        <td th:text="${blogPage.number*4+status.count}"></td>
-        <td th:text="${blog.name}" ></td>
-        <td th:text="${blog.content}"></td>
-        <td th:text="${blog.author}"></td>
-        <td th:text="${blog.category.name}"></td>
-        <td><a th:href="@{/blog/delete/{id}(id=${blog.getId()})}"><button class="btn btn-outline-danger">Xóa</button></a></td>
-        <td><a th:href="@{/blog/update/{id}(id=${blog.getId()})}"><button class="btn btn-outline-danger">Cập nhật</button></a></td>
-    </tr>
+    <tbody id="content">
+    </tbody>
+    <!--    <tbody id="content-more">-->
+
+    <!--    </tbody>-->
 </table>
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item"><a class="page-link" th:if="${blogPage.hasPrevious()}"
-                                 th:href="@{/blog/list(page=${blogPage.number - 1},searchName=${searchName})}">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#" th:text="${blogPage.number+1}"></a></li>
-        <li class="page-item"><a class="page-link" href="#" th:text="${blogPage.totalPages}"></a></li>
-        <li class="page-item"><a class="page-link" th:if="${blogPage.hasNext()}"
-                                 th:href="@{/blog/list(page=${blogPage.number+1},searchName=${searchName})}">Next</a>
-        </li>
-    </ul>
-</nav>
-<h1 th:if="${msg}" th:text="${msg}"></h1>
+<div id="btnLoadMore">
 </div>
+
+<script>
+    display();
+
+function display(newPage){
+        let content = "";
+        let btn = "";
+        let page = 0;
+        if (newPage !== "" && newPage > 0){
+            page = newPage;
+    }
+    let searchName = $("#searchName").val();
+    $.ajax({
+
+            contentType: "application/json",
+            method: "GET",
+            dataType: "json",
+            url: "http://localhost:8080/api/blogs?searchName="+searchName+"&page="+page,
+            success: function (data) {
+                for (let i = 0; i <data.content.length; i++) {
+                    content += `<tr>
+                                    <td>${newPage+i+1}</td>
+                                    <td>${data.content[i].name}</td>
+                                    <td>${data.content[i].content}</td>
+                                    <td>${data.content[i].author}</td>
+                                    <td>${data.content[i].category.name}</td>
+                                </tr>`;
+                }
+                btn += `<button onclick="loadMore(${page})">Load More</button>`
+                $("#content").append(content);
+                $(`#btnLoadMore`).html(btn);
+            }
+        }
+    )
+}
+    function loadMore(page){
+         page +=1;
+         display(page);
+    }
+
+
+
+</script>
 </body>
 </html>

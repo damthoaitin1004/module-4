@@ -11,17 +11,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/blogs")
+@RequestMapping("api")
 public class RestBlogController {
     @Autowired
     IBlogService blogService;
 
-    @GetMapping("")
-    public ResponseEntity<Page<Blog>> getList(@RequestParam(defaultValue = "0") int page,
+    @GetMapping("/blogs")
+    public ResponseEntity<Page<Blog>> getPage(@RequestParam(defaultValue = "0") int page,
                                               @RequestParam(defaultValue = "") String searchName) {
-        Pageable pageable = PageRequest.of(page, 4, Sort.by("date").ascending());
+        Pageable pageable = PageRequest.of(page, 1, Sort.by("name").ascending());
         Page<Blog> blogPage = blogService.findALl(pageable, searchName);
         if (blogPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -37,4 +39,5 @@ public class RestBlogController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
